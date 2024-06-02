@@ -1,0 +1,176 @@
+if game.Players.LocalPlayer.UserId == 1310503670 then
+    -- fps boost:
+    loadstring(game:HttpGet("https://pastebin.com/raw/2MqFBmsU", true))()
+    
+    setfpscap(99999)
+    
+    local decalsyeeted = true -- Leaving this on makes games look shitty but the fps goes up by at least 20.
+    local g = game
+    local w = g.Workspace
+    local l = g.Lighting
+    local t = w.Terrain
+    t.WaterWaveSize = 0
+    t.WaterWaveSpeed = 0
+    t.WaterReflectance = 0
+    t.WaterTransparency = 0
+    l.GlobalShadows = false
+    l.FogEnd = 9e9
+    l.Brightness = 0
+    settings().Rendering.QualityLevel = "Level01"
+    for i, v in pairs(g:GetDescendants()) do
+        if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
+            v.Material = "Plastic"
+            v.Reflectance = 0
+        elseif v:IsA("Decal") or v:IsA("Texture") and decalsyeeted then
+            v.Transparency = 1
+        elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+            v.Lifetime = NumberRange.new(0)
+        elseif v:IsA("Explosion") then
+            v.BlastPressure = 1
+            v.BlastRadius = 1
+        elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") then
+            v.Enabled = false
+        elseif v:IsA("MeshPart") then
+            v.Material = "Plastic"
+            v.Reflectance = 0
+            v.TextureID = 10385902758728957
+        end
+    end
+    for i, e in pairs(l:GetChildren()) do
+        if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
+            e.Enabled = false
+        end
+    end
+    
+    -- fps and ping:
+    
+    repeat wait() until game:IsLoaded() wait(2)
+    local ScreenGui = Instance.new("ScreenGui")
+    local Fps = Instance.new("TextLabel")
+    local Ping = Instance.new("TextLabel")
+    
+    --Properties:
+    
+    ScreenGui.Parent = game.CoreGui
+    ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    
+    Fps.Name = "Fps"
+    Fps.Parent = ScreenGui
+    Fps.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    Fps.BackgroundTransparency = 1.000
+    Fps.Position = UDim2.new(0.786138654, 0, 0, 0)
+    Fps.Size = UDim2.new(0, 125, 0, 25)
+    Fps.Font = Enum.Font.SourceSans
+    Fps.TextColor3 = Color3.fromRGB(255, 0, 0)
+    Fps.TextScaled = true
+    Fps.TextSize = 14.000
+    Fps.TextWrapped = true
+    
+    Ping.Name = "Ping"
+    Ping.Parent = ScreenGui
+    Ping.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    Ping.BackgroundTransparency = 1.000
+    Ping.BorderColor3 = Color3.fromRGB(255, 0, 0)
+    Ping.Position = UDim2.new(0.700000048, 0, 0, 0)
+    Ping.Size = UDim2.new(0, 125, 0, 25)
+    Ping.Font = Enum.Font.SourceSans
+    Ping.TextColor3 = Color3.fromRGB(255, 0, 0)
+    Ping.TextScaled = true
+    Ping.TextSize = 14.000
+    Ping.TextWrapped = true
+    
+    
+    -- Scripts:
+    
+    local script = Instance.new('LocalScript', Fps)
+    local RunService = game:GetService("RunService")
+    RunService.RenderStepped:Connect(function(frame) -- This will fire every time a frame is rendered
+    script.Parent.Text = ("FPS: "..math.round(1/frame)) 
+    end)
+    
+    
+    local script = Instance.new('LocalScript', Ping)
+    local RunService = game:GetService("RunService")
+    RunService.RenderStepped:Connect(function(ping) 
+    script.Parent.Text = ("Ping: " ..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString(math.round(2/ping))) -- your ping
+    end)
+    
+    
+    local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+    
+    local workspace = game:GetService("Workspace")
+    local players = game:GetService("Players")
+    local localPlayer = players.LocalPlayer
+    local UserInputService = game:GetService("UserInputService")
+    local replicatedStorage = game:GetService("ReplicatedStorage")
+    local heartbeatConnection
+    
+    
+    local Window = Rayfield:CreateWindow({
+        Name = "meaw hub",
+        LoadingTitle = "meaw hub",
+        LoadingSubtitle = "by ad_f", 
+        ConfigurationSaving = {
+           Enabled = true,
+           FolderName = nil, -- Create a custom folder for your hub/game
+           FileName = "dbopframs"
+        },
+        Discord = {
+           Enabled = true,
+           Invite = "https://discord.gg/dVJz3qpHh8", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+           RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+        },
+        KeySystem = false, -- Set this to true to use our key system
+        KeySettings = {
+           Title = "Meaw Hub Key System",
+           Subtitle = "Key System",
+           Note = "No method of obtaining the key is provided",
+           FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+           SaveKey = false, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+           GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+           Key = {"ddo93xxjam_dbopfram","yousef"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+        }
+     })
+    
+    
+     local MainTab = Window:CreateTab("Main", 13014537525) -- Title, Image
+     local Section = MainTab:CreateSection("Auto Parry")
+    
+     Rayfield:Notify({
+        Title = "meaw hub",
+        Content = "meaw hub",
+        Duration = 6.5,
+        Image = 4483362458,
+        Actions = { -- Notification Buttons
+           Ignore = {
+              Name = "Okay!",
+              Callback = function()
+              print("The user tapped Okay!")
+           end
+        },
+     },
+     })
+    
+    
+     local Button = MainTab:CreateButton({
+       Name = "Auto Parry",
+       Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/SfLX8mYe"))()
+       end,
+    })
+    
+     local Button = MainTab:CreateButton({
+       Name = "Close Parry (E)",
+       Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/zq1evp25"))()
+       end,
+    })
+    end
+
+    local Toggle = MainTab:CreateButton({
+        Name = "Close Parry (Mobile)",
+        Callback = function(Value)
+           getgenv().SpamSpeed = 1 loadstring(game:HttpGet("https://raw.githubusercontent.com/Hosvile/Refinement/main/MC%3ABlade%20Ball%20Spam",true))()
+           
+           end,
+     })
